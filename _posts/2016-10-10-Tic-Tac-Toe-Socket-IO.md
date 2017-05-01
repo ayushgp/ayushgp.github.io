@@ -68,7 +68,7 @@ var rooms = 0;
 app.use(express.static('.'));
 
 app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/game.html');
+  res.sendFile(__dirname + '/game.html');
 });
 
 server.listen(5000);
@@ -78,16 +78,16 @@ We've created the server. Lets create a basic HTML file, `game.html`, we'll be u
 ```html
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Tic Tac Toe</title>
-		<link rel="stylesheet" href="node_modules/skeleton-css/css/skeleton.css">
-	</head>
-	<body>
-		<div class="container">
-		</div>
-		<script src="node_modules/jquery/dist/jquery.min.js"></script>
-		<script src="/socket.io/socket.io.js"></script>
-	</body>
+  <head>
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="node_modules/skeleton-css/css/skeleton.css">
+  </head>
+  <body>
+    <div class="container">
+    </div>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </body>
 </html>
 ```
 Now we need to handle what happens whenever any client connects to our server. Socket.IO provides an event called `connection` that it automatically triggers. Add the following code to the `index.js` file above `server.listen` call to handle connection events: 
