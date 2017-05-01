@@ -16,7 +16,7 @@ The code for this application is available on [GitHub](https://github.com/ayushg
 
 - You should also have some [jQuery](http://jquery.com) knowledge to follow along this tutorial. If you don't, you can check out [Beginners Guide to DOM Selection with jQuery](https://www.sitepoint.com/beginners-guide-dom-selection-jquery/). 
 
-##Getting started
+## Getting started
 
 Socket.IO uses events for communication between client and server. We open connections on the client to connect to the server. Once connected to the server, we have a two way pipeline through which both client and server can send data to each other. The main advantage of this is that the server can send data to the client without the client even requesting it! This is particularly helpful for scenarios where we need to push data to the client based on some events. 
 
@@ -98,7 +98,7 @@ io.on('connection', function(socket){
 ```
 Whenever a user creates a game, we need to keep track of it. Doing so manually is tedious. Socket.IO allows us to create **rooms**. We'll use rooms to create pairs of users. All communication that happens in a room is limited to the people who've joined it. 
 
-###Internals of our server
+### Internals of our server
 The following steps will take place before players can actually play a game: 
 
 1. The server is making the first player join the game room as soon as the user creates a game. 
@@ -111,7 +111,7 @@ When users will play their turns, the server will receive the `playTurn` event. 
 The user who plays the turn checks if he won or game is tied. If he wins, the socket emits `gameEnded` event which then is handled to let the other user know about the status of the game. 
 
 
-###Event handlers
+### Event handlers
 Now let's implement the above plan and get our server working. We'll create event handlers for `createGame`, `joinGame`, `playTurn` and `gameEnded` events. 
 Replace the log statement within the connection event handler with the following code: 
 ```javascript
@@ -161,7 +161,7 @@ The following information will help you understand how `socket` handles events a
 * `socket.emit('event', data)` emits the event to the client who invoked the event containing this call. 
 * `socket.broadcast.to(room)` broadcasts the event to everyone in the room except the person who sent the event which triggered this function. For example, in the `gameEnded` event handler, the person who emitted this event won't be sent the `gameEnd` event. Everyone else in that room will receive this event.
 
-##Setting up the UI
+## Setting up the UI
 Now that we've set up our server, its time for us to create the UI of the game. We'll first create a form that allows users to create and join games. Edit the `game.html` file and add the following code between the body tags:
 
 ```html
@@ -213,7 +213,7 @@ We also need to create the game board, include the jQuery script and our own scr
 <script src="main.js"></script>	
 ```
 
-##Creating a new game
+## Creating a new game
 We'll set our `main.js` file that will handle all of our game logic. Create a new file, `main.js` in the root of `tic-tac-toe` and enter the following code in it:
 
 ```javascript
@@ -259,7 +259,7 @@ We've created an [IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_functi
 - We've also attached click event listeners to both of our buttons, **Create Game** and **Join Game**. 
 - We've put validation checks and notified the server about either of these events.
 
-###Player Object
+### Player Object
 Now we need to create 2 objects `Game` and `Player`. These objects will handle various properties of the game and the player. They'll help us keep our code organised. 
 
 Let us start by defining the `Player` object. Enter the following code after the variable declarations:
@@ -267,9 +267,6 @@ Let us start by defining the `Player` object. Enter the following code after the
 ```javascript
 /**
  * Player class
- * 
- * @param {string} name Name of the player
- * @param {string} type Type of the player
  */
 var Player = function(name, type){
 	this.name = name;
@@ -285,24 +282,17 @@ Player.wins = [7, 56, 448, 73, 146, 292, 273, 84];
 
 /**
  * Set the bit of the move played by the player
- * 
- * @param {int} tileValue Bitmask used to set the recently played move.
  */
 Player.prototype.updateMovesPlayed = function(tileValue){
 	this.movesPlayed += tileValue;
 }
 
-/**
- * @returns movesPlayed for checking the winner
- */
 Player.prototype.getMovesPlayed = function(){
 	return this.movesPlayed;
 }
 
 /**
  * Set the currentTurn for player to turn and update UI to reflect the same.
- * 
- * @param {boolean} turn Player's turn status
  */
 Player.prototype.setCurrentTurn = function(turn){
 	this.currentTurn = turn;
@@ -314,37 +304,28 @@ Player.prototype.setCurrentTurn = function(turn){
 	}
 }
 
-/**
- * @returns name of the player.
- */
 Player.prototype.getPlayerName = function(){
 	return this.name;
 }
 
-/**
- * @returns type of the player (O or X).
- */
 Player.prototype.getPlayerType = function(){
 	return this.type;
 }
 
 /**
- * @returns currentTurn to determine if it is the player's turn.
+ * Returns currentTurn to determine if it is the player's turn.
  */
 Player.prototype.getCurrentTurn = function(){
 	return this.currentTurn;
 }
 ```
 
-###Game Class
+### Game Class
 Now let us create the `Game` class. We'll be using the above methods(`Player` class) to keep track of turns, tiles played, etc.
 
 ```javascript
 /**
  * Game class
- * 
- * @param {any} roomId Id of the room in which the game is running on 
- * the server.
  */
 var Game = function(roomId){
 	this.roomId = roomId;
@@ -387,8 +368,6 @@ Game.prototype.createGameBoard = function(){
 
 /**
  * Remove the menu from DOM, display the gameboard and greet the player.
- * 
- * @param {any} message
  */
 Game.prototype.displayBoard = function(message){
 	$('.menu').css('display', 'none');
@@ -399,11 +378,6 @@ Game.prototype.displayBoard = function(message){
 
 /**
  * Update game board UI
- * 
- * @param {string} type Type of player(X or O)
- * @param {int} row Row in which move was played
- * @param {int} col Col in which move was played
- * @param {string} tile Id of the the that was clicked
  */
 Game.prototype.updateBoard = function(type, row, col, tile){
 	$('#'+tile).text(type);
@@ -412,17 +386,12 @@ Game.prototype.updateBoard = function(type, row, col, tile){
 	this.moves ++;
 }
 
-/**
- * @returns roomId of the current game.
- */
 Game.prototype.getRoomId = function(){
 	return this.roomId;
 }
 
 /**
  * Send an update to the opponent to update their UI.
- * 
- * @param {any} tile Id of the clicked tile.
  */
 Game.prototype.playTurn = function(tile){
 	var clickedTile = $(tile).attr('id');
@@ -477,8 +446,6 @@ Game.prototype.checkWinner = function(){
 
 /**
  * Check if game is tied
- * 
- * @returns	{boolean} This tells if the game is tied or not.
  */
 Game.prototype.checkTie = function(){
 	return this.moves >= 9;
@@ -497,8 +464,6 @@ Game.prototype.announceWinner = function(){
 
 /**
  * End the game if the other player won.  
- * 
- * @param {any} message Print this message to the alert box.
  */
 Game.prototype.endGame = function(message){
 	alert(message);
@@ -511,7 +476,7 @@ Game.prototype.endGame = function(message){
 - Every time a player plays a move, we update the board(`updateBoard` function) and notify the opponent by emitting the `turnPlayed` event. 
 - At the end of every turn, we check if a player has won the game or it is tied. We notify the players accordingly using the `announceWinner` function. The `endGame` handles the event emitted by `announceWinner`. 
 
-###Front end event handlers
+### Front end event handlers
 Now we need to add event handlers for the events we are broadcasting/emitting from our server. The events are: 
 
  * `newGame`: Create a new game room and notify the creator of game.
@@ -576,7 +541,7 @@ socket.on('turnPlayed', function(data){
 /**
  * If the other player wins or game is tied, this event is received. 
  * Notify the user about either scenario and end the game. 
- */Notify the user 
+ */
 socket.on('gameEnd', function(data){
 	game.endGame(data.message);
 	socket.leave(data.room);
@@ -590,7 +555,7 @@ socket.on('err', function(data){
 });
 ```
 
-##Playing the game
+## Playing the game
 Phew, that was a lot of code! Let us run and play the game now. To do so, run the following command in your terminal: 
 
 ```bash 
@@ -602,6 +567,4 @@ Our server will start running on [http://localhost:5000/](http://localhost:5000/
 ## Conclusion
 We've created a multiplayer game with our own server in less than 400 lines of code. Pretty neat, huh? Please note that this is a minimal implementation for demonstrating how you can use Socket.IO and it doesn't cover every corner case you might run into while running something like this in production. 
 
-You can try the game [here](http://tic-tac-toe-realtime.herokuapp.com). If you find any issues in the code, file an issue on its [repository](https://github.com/ayushgp/tic-tac-toe-socket-io) or let me know in the comments! If you want, you can submit a PR as well.
-
-Well, what do you think? Will you try and create a game/realtime application using Socket.IO? Let me know in the comments!
+You can try the game [here](http://tic-tac-toe-realtime.herokuapp.com). If you find any issues in the code, file an issue on its [repository](https://github.com/ayushgp/tic-tac-toe-socket-io). If you want, you can submit a PR as well.
