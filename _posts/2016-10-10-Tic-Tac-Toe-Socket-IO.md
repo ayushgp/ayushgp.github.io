@@ -3,9 +3,7 @@ layout: post
 title: Tic Tac Toe using Socket.IO
 ---
 
-# Tic Tac Toe Game using Socket.IO
-
-Today I'll teach you how to create a real time [Tic-Tac-Toe game](https://www.wikiwand.com/en/Tic-tac-toe) using [socket.IO](http://socket.io). 
+I'll teach you how to create a real time [Tic-Tac-Toe game](https://www.wikiwand.com/en/Tic-tac-toe) using [socket.IO](http://socket.io). 
 
 _Note: This project uses [skeleton](http://getskeleton.com/), a minimal css framework to keep the UI pretty. It's not required to build this app._
 The code for this application is available on [GitHub](https://github.com/ayushgp/tic-tac-toe-socket-io) and you can check out the [demo on Heroku](https://tic-tac-toe-realtime.herokuapp.com).
