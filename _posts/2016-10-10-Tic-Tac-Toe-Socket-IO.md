@@ -119,40 +119,40 @@ Replace the log statement within the connection event handler with the following
  * Create a new game room and notify the creator of game. 
  */
 socket.on('createGame', function(data){
-	socket.join('room-' + ++rooms);
-	socket.emit('newGame', {name: data.name, room: 'room-'+rooms});
+  socket.join('room-' + ++rooms);
+  socket.emit('newGame', {name: data.name, room: 'room-'+rooms});
 });
 
 /**
  * Connect the Player 2 to the room he requested. Show error if room full.
  */
 socket.on('joinGame', function(data){
-	var room = io.nsps['/'].adapter.rooms[data.room];
-	if( room && room.length == 1){
-		socket.join(data.room);
-		socket.broadcast.to(data.room).emit('player1', {});
-		socket.emit('player2', {name: data.name, room: data.room })
-	}
-	else {
-		socket.emit('err', {message: 'Sorry, The room is full!'});
-	}
+  var room = io.nsps['/'].adapter.rooms[data.room];
+  if( room && room.length == 1){
+    socket.join(data.room);
+    socket.broadcast.to(data.room).emit('player1', {});
+    socket.emit('player2', {name: data.name, room: data.room })
+  }
+  else {
+    socket.emit('err', {message: 'Sorry, The room is full!'});
+  }
 });
 
 /**
  * Handle the turn played by either player and notify the other. 
  */
 socket.on('playTurn', function(data){
-	socket.broadcast.to(data.room).emit('turnPlayed', {
-		tile: data.tile,
-		room: data.room
-	});
+  socket.broadcast.to(data.room).emit('turnPlayed', {
+    tile: data.tile,
+    room: data.room
+  });
 });
 
 /**
  * Notify the players about the victor.
  */
 socket.on('gameEnded', function(data){
-	socket.broadcast.to(data.room).emit('gameEnd', data);
+  socket.broadcast.to(data.room).emit('gameEnd', data);
 });
 ```
 The following information will help you understand how `socket` handles events and takes care of communication:
@@ -166,47 +166,47 @@ Now that we've set up our server, its time for us to create the UI of the game. 
 
 ```html
 <div class="container">
-	<div class="menu">
-		<h1>Tic - Tac - Toe</h1>
-		<h3>How To Play</h3>
-		<ol>
-			<li>Player 1: Create a new game by entering the username</li>
-			<li>Player 2: Enter another username and the room id that is displayed on first window.</li>
-			<li>Click on join game. </li>
-		</ol>
-		<h4>Create a new Game</h4>
-		<input type="text" name="name" id="nameNew" placeholder="Enter your name" required>
-		<button id="new">New Game</button>
-		<br><br>
-		<h4>Join an existing game</h4>
-		<input type="text" name="name" id="nameJoin" placeholder="Enter your name" required>
-		<input type="text" name="room" id="room" placeholder="Enter Game ID" required>
-		<button id="join">Join Game</button>
-	</div>
+  <div class="menu">
+    <h1>Tic - Tac - Toe</h1>
+    <h3>How To Play</h3>
+    <ol>
+      <li>Player 1: Create a new game by entering the username</li>
+      <li>Player 2: Enter another username and the room id that is displayed on first window.</li>
+      <li>Click on join game. </li>
+    </ol>
+    <h4>Create a new Game</h4>
+    <input type="text" name="name" id="nameNew" placeholder="Enter your name" required>
+    <button id="new">New Game</button>
+    <br><br>
+    <h4>Join an existing game</h4>
+    <input type="text" name="name" id="nameJoin" placeholder="Enter your name" required>
+    <input type="text" name="room" id="room" placeholder="Enter Game ID" required>
+    <button id="join">Join Game</button>
+  </div>
 </div>
 ```
 We also need to create the game board, include the jQuery script and our own script that'll run our game. Enter the following code after the closing `div` tag(of class menu).
 ```html
 <div class="gameBoard">
-	<h2 id="userHello"></h2>
-	<h3 id="turn"></h3>
-	<table class="center">
-		<tr>
-			<td><button class="tile" id="button_00"></button></td>
-			<td><button class="tile" id="button_01"></button></td>
-			<td><button class="tile" id="button_02"></button></td>
-		</tr>
-		<tr>
-			<td><button class="tile" id="button_10"></button></td>
-			<td><button class="tile" id="button_11"></button></td>
-			<td><button class="tile" id="button_12"></button></td>
-		</tr>
-		<tr>
-			<td><button class="tile" id="button_20"></button></td>
-			<td><button class="tile" id="button_21"></button></td>
-			<td><button class="tile" id="button_22"></button></td>
-		</tr>
-	</table>
+  <h2 id="userHello"></h2>
+  <h3 id="turn"></h3>
+  <table class="center">
+    <tr>
+      <td><button class="tile" id="button_00"></button></td>
+      <td><button class="tile" id="button_01"></button></td>
+      <td><button class="tile" id="button_02"></button></td>
+    </tr>
+    <tr>
+      <td><button class="tile" id="button_10"></button></td>
+      <td><button class="tile" id="button_11"></button></td>
+      <td><button class="tile" id="button_12"></button></td>
+    </tr>
+    <tr>
+      <td><button class="tile" id="button_20"></button></td>
+      <td><button class="tile" id="button_21"></button></td>
+      <td><button class="tile" id="button_22"></button></td>
+    </tr>
+  </table>
 </div>
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
@@ -219,38 +219,38 @@ We'll set our `main.js` file that will handle all of our game logic. Create a ne
 ```javascript
 (function(){
 
-	// Types of players
-	var P1 = 'X', P2 = 'O';
-	var socket = io.connect('http://localhost:5000'),
-		player,
-		game;
-		
-	/**
-	 * Create a new game. Emit newGame event.
-	 */
-	$('#new').on('click', function(){
-		var name = $('#nameNew').val();
-		if(!name){
-			alert('Please enter your name.');
-			return;
-		}
-		socket.emit('createGame', {name: name});
-		player = new Player(name, P1);
-	});
+  // Types of players
+  var P1 = 'X', P2 = 'O';
+  var socket = io.connect('http://localhost:5000'),
+    player,
+    game;
 
-	/** 
-	 *  Join an existing game on the entered roomId. Emit the joinGame event.
-	 */ 
-	$('#join').on('click', function(){
-		var name = $('#nameJoin').val();
-		var roomID = $('#room').val();
-		if(!name || !roomID){
-			alert('Please enter your name and game ID.');
-			return;
-		}
-		socket.emit('joinGame', {name: name, room: roomID});
-		player = new Player(name, P2);
-	});
+  /**
+   * Create a new game. Emit newGame event.
+   */
+  $('#new').on('click', function(){
+    var name = $('#nameNew').val();
+    if(!name){
+      alert('Please enter your name.');
+      return;
+    }
+    socket.emit('createGame', {name: name});
+    player = new Player(name, P1);
+  });
+
+  /** 
+   *  Join an existing game on the entered roomId. Emit the joinGame event.
+   */ 
+  $('#join').on('click', function(){
+    var name = $('#nameJoin').val();
+    var roomID = $('#room').val();
+    if(!name || !roomID){
+      alert('Please enter your name and game ID.');
+      return;
+    }
+    socket.emit('joinGame', {name: name, room: roomID});
+    player = new Player(name, P2);
+  });
 })();
 ```
 We've created an [IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression) that runs as soon as it is loaded. We'll put all our code within this IIFE. 
@@ -269,10 +269,10 @@ Let us start by defining the `Player` object. Enter the following code after the
  * Player class
  */
 var Player = function(name, type){
-	this.name = name;
-	this.type = type;
-	this.currentTurn = true;
-	this.movesPlayed = 0;
+  this.name = name;
+  this.type = type;
+  this.currentTurn = true;
+  this.movesPlayed = 0;
 }
 
 /**
@@ -284,39 +284,39 @@ Player.wins = [7, 56, 448, 73, 146, 292, 273, 84];
  * Set the bit of the move played by the player
  */
 Player.prototype.updateMovesPlayed = function(tileValue){
-	this.movesPlayed += tileValue;
+  this.movesPlayed += tileValue;
 }
 
 Player.prototype.getMovesPlayed = function(){
-	return this.movesPlayed;
+  return this.movesPlayed;
 }
 
 /**
  * Set the currentTurn for player to turn and update UI to reflect the same.
  */
 Player.prototype.setCurrentTurn = function(turn){
-	this.currentTurn = turn;
-	if(turn){
-		$('#turn').text('Your turn.');
-	}
-	else{
-		$('#turn').text('Waiting for Opponent');
-	}
+  this.currentTurn = turn;
+  if(turn){
+    $('#turn').text('Your turn.');
+  }
+  else{
+    $('#turn').text('Waiting for Opponent');
+  }
 }
 
 Player.prototype.getPlayerName = function(){
-	return this.name;
+  return this.name;
 }
 
 Player.prototype.getPlayerType = function(){
-	return this.type;
+  return this.type;
 }
 
 /**
  * Returns currentTurn to determine if it is the player's turn.
  */
 Player.prototype.getCurrentTurn = function(){
-	return this.currentTurn;
+  return this.currentTurn;
 }
 ```
 
@@ -328,79 +328,79 @@ Now let us create the `Game` class. We'll be using the above methods(`Player` cl
  * Game class
  */
 var Game = function(roomId){
-	this.roomId = roomId;
-	this.board = [];
-	this.moves = 0;
+  this.roomId = roomId;
+  this.board = [];
+  this.moves = 0;
 }
 
 /**
  * Create the Game board by attaching event listeners to the buttons. 
  */
 Game.prototype.createGameBoard = function(){
-	for(var i=0; i<3; i++) {
-		this.board.push(['','','']);
-		for(var j=0; j<3; j++) {
-			$('#button_' + i + '' + j).on('click', function(){
-				if(!player.getCurrentTurn()){
-					alert('Its not your turn!');
-					return;
-				}
+  for(var i=0; i<3; i++) {
+    this.board.push(['','','']);
+    for(var j=0; j<3; j++) {
+      $('#button_' + i + '' + j).on('click', function(){
+        if(!player.getCurrentTurn()){
+          alert('Its not your turn!');
+          return;
+        }
 
-				if($(this).prop('disabled'))
-					alert('This tile has already been played on!');
+        if($(this).prop('disabled'))
+          alert('This tile has already been played on!');
 
-				var row = parseInt(this.id.split('_')[1][0]);
-				var col = parseInt(this.id.split('_')[1][1]);
+        var row = parseInt(this.id.split('_')[1][0]);
+        var col = parseInt(this.id.split('_')[1][1]);
 
-				//Update board after your turn.
-				game.playTurn(this);
-				game.updateBoard(player.getPlayerType(), row, col, this.id);
+        //Update board after your turn.
+        game.playTurn(this);
+        game.updateBoard(player.getPlayerType(), row, col, this.id);
 
-				player.setCurrentTurn(false);
-				player.updateMovesPlayed(1 << (row * 3 + col));
+        player.setCurrentTurn(false);
+        player.updateMovesPlayed(1 << (row * 3 + col));
 
-				game.checkWinner();
-				return false;
-			});
-		}
-	}
+        game.checkWinner();
+        return false;
+      });
+    }
+  }
 }
 
 /**
  * Remove the menu from DOM, display the gameboard and greet the player.
  */
 Game.prototype.displayBoard = function(message){
-	$('.menu').css('display', 'none');
-	$('.gameBoard').css('display', 'block');
-	$('#userHello').html(message);
-	this.createGameBoard();
+  $('.menu').css('display', 'none');
+  $('.gameBoard').css('display', 'block');
+  $('#userHello').html(message);
+  this.createGameBoard();
 }
 
 /**
  * Update game board UI
  */
 Game.prototype.updateBoard = function(type, row, col, tile){
-	$('#'+tile).text(type);
-	$('#'+tile).prop('disabled', true);
-	this.board[row][col] = type;
-	this.moves ++;
+  $('#'+tile).text(type);
+  $('#'+tile).prop('disabled', true);
+  this.board[row][col] = type;
+  this.moves ++;
 }
 
 Game.prototype.getRoomId = function(){
-	return this.roomId;
+  return this.roomId;
 }
 
 /**
  * Send an update to the opponent to update their UI.
  */
 Game.prototype.playTurn = function(tile){
-	var clickedTile = $(tile).attr('id');
-	var turnObj = {
-		tile: clickedTile,
-		room: this.getRoomId()
-	};
-	// Emit an event to update other player that you've played your turn.
-	socket.emit('playTurn', turnObj);
+  var clickedTile = $(tile).attr('id');
+  var turnObj = {
+    tile: clickedTile,
+    room: this.getRoomId()
+  };
+  // Emit an event to update other player that you've played your turn.
+  socket.emit('playTurn', turnObj);
 }
 
 /**
@@ -427,28 +427,28 @@ Game.prototype.playTurn = function(tile){
  *  player, we've stored this information in player.movesPlayed.
  */
 Game.prototype.checkWinner = function(){		
-	var currentPlayerPositions = player.getMovesPlayed();
-	Player.wins.forEach(function(winningPosition){
-		// We're checking for every winning position if the player has achieved it.
-		// Keep in mind that we are using a bitwise AND here not a logical one.PlaysArr
-		if(winningPosition & currentPlayerPositions == winningPosition){
-			game.announceWinner();
-		}
-	});
+  var currentPlayerPositions = player.getMovesPlayed();
+  Player.wins.forEach(function(winningPosition){
+    // We're checking for every winning position if the player has achieved it.
+    // Keep in mind that we are using a bitwise AND here not a logical one.PlaysArr
+    if(winningPosition & currentPlayerPositions == winningPosition){
+      game.announceWinner();
+    }
+  });
 
-	var tied = this.checkTie();
-	if(tied){
-		socket.emit('gameEnded', {room: this.getRoomId(), message: 'Game Tied :('});
-		alert('Game Tied :(');
-		location.reload();	
-	}
+  var tied = this.checkTie();
+  if(tied){
+    socket.emit('gameEnded', {room: this.getRoomId(), message: 'Game Tied :('});
+    alert('Game Tied :(');
+    location.reload();	
+  }
 }
 
 /**
  * Check if game is tied
  */
 Game.prototype.checkTie = function(){
-	return this.moves >= 9;
+  return this.moves >= 9;
 }
 
 /**
@@ -456,18 +456,18 @@ Game.prototype.checkTie = function(){
  * Broadcast this on the room to let the opponent know.
  */
 Game.prototype.announceWinner = function(){
-	var message = player.getPlayerName() + ' wins!';
-	socket.emit('gameEnded', {room: this.getRoomId(), message: message});
-	alert(message);
-	location.reload();
+  var message = player.getPlayerName() + ' wins!';
+  socket.emit('gameEnded', {room: this.getRoomId(), message: message});
+  alert(message);
+  location.reload();
 }
 
 /**
  * End the game if the other player won.  
  */
 Game.prototype.endGame = function(message){
-	alert(message);
-	location.reload();
+  alert(message);
+  location.reload();
 }
 ```
 
@@ -494,13 +494,13 @@ Lets create the event handlers for these events to our *main.js* file within the
  * Update the UI and create new Game var.
  */
 socket.on('newGame', function(data){
-	var message = 'Hello, ' + data.name + 
-		'. Please ask your friend to enter Game ID: ' +
-		data.room + '. Waiting for player 2...';
+  var message = 'Hello, ' + data.name + 
+    '. Please ask your friend to enter Game ID: ' +
+    data.room + '. Waiting for player 2...';
 
-	// Create game for player 1
-	game = new Game(data.room);
-	game.displayBoard(message);		
+  // Create game for player 1
+  game = new Game(data.room);
+  game.displayBoard(message);		
 });
 
 /**
@@ -508,9 +508,9 @@ socket.on('newGame', function(data){
  * This event is received when opponent connects to the room.
  */
 socket.on('player1', function(data){		
-	var message = 'Hello, ' + player.getPlayerName();
-	$('#userHello').html(message);
-	player.setCurrentTurn(true);
+  var message = 'Hello, ' + player.getPlayerName();
+  $('#userHello').html(message);
+  player.setCurrentTurn(true);
 });
 
 /**
@@ -518,12 +518,12 @@ socket.on('player1', function(data){
  * This event is received when P2 successfully joins the game room. 
  */
 socket.on('player2', function(data){
-	var message = 'Hello, ' + data.name;
-	
-	//Create game for player 2
-	game = new Game(data.room);
-	game.displayBoard(message);
-	player.setCurrentTurn(false);	
+  var message = 'Hello, ' + data.name;
+
+  //Create game for player 2
+  game = new Game(data.room);
+  game.displayBoard(message);
+  player.setCurrentTurn(false);	
 });	
 
 /**
@@ -531,11 +531,11 @@ socket.on('player2', function(data){
  * Allow the current player to play now. 
  */
 socket.on('turnPlayed', function(data){
-	var row = data.tile.split('_')[1][0];
-	var col = data.tile.split('_')[1][1];
-	var opponentType = player.getPlayerType() == P1 ? P2 : P1;
-	game.updateBoard(opponentType, row, col, data.tile);
-	player.setCurrentTurn(true);
+  var row = data.tile.split('_')[1][0];
+  var col = data.tile.split('_')[1][1];
+  var opponentType = player.getPlayerType() == P1 ? P2 : P1;
+  game.updateBoard(opponentType, row, col, data.tile);
+  player.setCurrentTurn(true);
 });
 
 /**
@@ -543,15 +543,15 @@ socket.on('turnPlayed', function(data){
  * Notify the user about either scenario and end the game. 
  */
 socket.on('gameEnd', function(data){
-	game.endGame(data.message);
-	socket.leave(data.room);
+  game.endGame(data.message);
+  socket.leave(data.room);
 })
 
 /**
  * End the game on any err event. 
  */
 socket.on('err', function(data){
-	game.endGame(data.message);
+  game.endGame(data.message);
 });
 ```
 
