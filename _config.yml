@@ -82,3 +82,6 @@ exclude:
   - CNAME
 
 theme: jekyll-theme-dinky
+
+plugins:
+  - jekyll-seo-tag
