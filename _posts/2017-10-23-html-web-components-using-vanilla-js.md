@@ -66,7 +66,7 @@ customElements.define('user-card', UserCard);
 In this example, we have set up a Class that defines some of the behavior of our Custom Element, `user-card`. The `customElements.define('user-card', UserCard);` call tells the DOM that we have created a new custom element called `user-card`, whose behaviour is defined by `UserCard`. Now we can use the user-card element in our HTML. 
 
 We'll be using the following API from `https://jsonplaceholder.typicode.com/` to create our User cards. Here's an example of how the data will look:
-```json
+```js
 {
   id: 1,
   name: "Leanne Graham",
@@ -158,57 +158,57 @@ const currentDocument = document.currentScript.ownerDocument;
 Let us define our `connectedCallback`:
 
 ```js
-  // Called when element is inserted in DOM
-  connectedCallback() {
-    const shadowRoot = this.attachShadow({mode: 'open'});
+// Called when element is inserted in DOM
+connectedCallback() {
+  const shadowRoot = this.attachShadow({mode: 'open'});
 
-    // Select the template and clone it. Finally attach the cloned node to the shadowDOM's root.
-    // Current document needs to be defined to get DOM access to imported HTML
-    const template = currentDocument.querySelector('#user-card-template');
-    const instance = template.content.cloneNode(true);
-    shadowRoot.appendChild(instance);
+  // Select the template and clone it. Finally attach the cloned node to the shadowDOM's root.
+  // Current document needs to be defined to get DOM access to imported HTML
+  const template = currentDocument.querySelector('#user-card-template');
+  const instance = template.content.cloneNode(true);
+  shadowRoot.appendChild(instance);
 
-    // Extract the attribute user-id from our element. 
-    // Note that we are going to specify our cards like: 
-    // <user-card user-id="1"></user-card>
-    const userId = this.getAttribute('user-id');
+  // Extract the attribute user-id from our element. 
+  // Note that we are going to specify our cards like: 
+  // <user-card user-id="1"></user-card>
+  const userId = this.getAttribute('user-id');
 
-    // Fetch the data for that user Id from the API and call the render method with this data
-    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
-        .then((response) => response.text())
-        .then((responseText) => {
-            this.render(JSON.parse(responseText));
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-  }
+  // Fetch the data for that user Id from the API and call the render method with this data
+  fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+      .then((response) => response.text())
+      .then((responseText) => {
+          this.render(JSON.parse(responseText));
+      })
+      .catch((error) => {
+          console.error(error);
+      });
+}
 ```
 
 ### Rendering the user data
 We have our `connectedCallback` in place now. We created a shadow root and attached our template's clone to it. Now we need to populate that clone. For that, we called the `render` method from our `fetch` call. Let's create the `render` method and `toggleCard` method. 
 
 ```js
-  render(userData) {
-    // Fill the respective areas of the card using DOM manipulation APIs
-    // All of our components elements reside under shadow dom. So we created a this.shadowRoot property
-    // We use this property to call selectors so that the DOM is searched only under this subtree
-    this.shadowRoot.querySelector('.card__full-name').innerHTML = userData.name;
-    this.shadowRoot.querySelector('.card__user-name').innerHTML = userData.username;
-    this.shadowRoot.querySelector('.card__website').innerHTML = userData.website;
-    this.shadowRoot.querySelector('.card__address').innerHTML = `<h4>Address</h4>
-      ${userData.address.suite}, <br />
-      ${userData.address.street},<br />
-      ${userData.address.city},<br />
-      Zipcode: ${userData.address.zipcode}`
-  }
+render(userData) {
+  // Fill the respective areas of the card using DOM manipulation APIs
+  // All of our components elements reside under shadow dom. So we created a this.shadowRoot property
+  // We use this property to call selectors so that the DOM is searched only under this subtree
+  this.shadowRoot.querySelector('.card__full-name').innerHTML = userData.name;
+  this.shadowRoot.querySelector('.card__user-name').innerHTML = userData.username;
+  this.shadowRoot.querySelector('.card__website').innerHTML = userData.website;
+  this.shadowRoot.querySelector('.card__address').innerHTML = `<h4>Address</h4>
+    ${userData.address.suite}, <br />
+    ${userData.address.street},<br />
+    ${userData.address.city},<br />
+    Zipcode: ${userData.address.zipcode}`
+}
 
-  toggleCard() {
-    let elem = this.shadowRoot.querySelector('.card__hidden-content');
-    let btn = this.shadowRoot.querySelector('.card__details-btn');
-    btn.innerHTML = elem.style.display == 'none' ? 'Less Details' : 'More Details';
-    elem.style.display = elem.style.display == 'none' ? 'block' : 'none';
-  }
+toggleCard() {
+  let elem = this.shadowRoot.querySelector('.card__hidden-content');
+  let btn = this.shadowRoot.querySelector('.card__details-btn');
+  btn.innerHTML = elem.style.display == 'none' ? 'Less Details' : 'More Details';
+  elem.style.display = elem.style.display == 'none' ? 'block' : 'none';
+}
 ```
 
 Now that we have our component in place, we can use it in our projects. Any of them. So for the sake of this tutorial, create a new HTML file called `index.html` and write the following code in it: 
@@ -296,6 +296,8 @@ class MyComponent extends HTMLElement { ... }
 const FrozenMyComponent = Object.freeze(MyComponent);
 customElements.define('my-component', FrozenMyComponent);
 ```
+
+<i>Note: Freezing class definitions will prevent you from monkey patching and can make your code difficult to debug.</i>
 
 ## Conclusion
 The tutorials out there on Web Components are very limited. This can be blamed partly on React, which has mostly shadowed Web Components. I hope this article gives you enough information to go and build your own custom components without any dependencies. You can check out the [Custom components API spec](https://www.w3.org/TR/custom-elements/) for more info on Web Components.
