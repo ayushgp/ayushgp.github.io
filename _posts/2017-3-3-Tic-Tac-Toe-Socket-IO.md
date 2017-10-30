@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Tic Tac Toe using Socket.IO
+comments: true
 ---
 
 I'll teach you how to create a real time [Tic-Tac-Toe game](https://www.wikiwand.com/en/Tic-tac-toe) using [socket.IO](http://socket.io). 
