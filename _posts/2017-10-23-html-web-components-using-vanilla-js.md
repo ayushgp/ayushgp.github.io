@@ -1,6 +1,7 @@
 ---
 layout: post
 title: HTML Web Component using Vanilla JavaScript
+comments: true
 ---
 
 Web Components have been around for a while now. Google has really been trying to push for their more widespread adoption, but most major browsers still have very little support for it, except for Opera and Chrome.
