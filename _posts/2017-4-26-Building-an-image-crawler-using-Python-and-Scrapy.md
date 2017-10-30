@@ -1,3 +1,8 @@
+---
+layout: post
+title: Building an image crawler using Python and Scrapy
+comments: true
+---
 Have you ever needed to pull data from a website that doesn't provide an API? Well, you could just pull out the data from the HTML then! This tutorial will teach you how to scrape websites so that you can get the data you want from third party websites without using APIs.
 
 Scrapy is an open source web scraping and crawling framework written in python. We'll learn how to use scrapy to crawl and scrape websites. 
