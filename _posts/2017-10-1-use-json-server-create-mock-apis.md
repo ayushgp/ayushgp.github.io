@@ -1,6 +1,7 @@
 ---
 layout: post
 title: How to Use json-server to Create Mock APIs
+comments: true
 ---
 
 So you have an awesome idea for a mobile/web app and want to start working on its front end right away. But you need to create an API for it first because without it, you wouldn’t be able to proceed with the app.
