@@ -9,6 +9,9 @@ I've earlier written a [post on how to create vanilla JS Web Components](https:/
 The previous post showed how to create a very simple and not that useful web component. In this post I'll teach you how to create multiple components and make them interact with each other and organizing your code. These are what I used when I learnt when I built an app using web components. 
 
 ## What we'll build
+
+![webcomoponents](https://user-images.githubusercontent.com/7992943/32207972-794dd8de-be25-11e7-8333-37aece4c030c.gif)
+
 We'll be building 3 components. 
 The first component would be a List of people. 
 The second component would display the information of person we select from first component. 
