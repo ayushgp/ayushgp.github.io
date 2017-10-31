@@ -1,6 +1,7 @@
 ---
 layout: post
 title: HTML Web Component using Vanilla JS - Part 2
+description: I’ve earlier written a post on how to create vanilla JS Web Components using the new API spec introduced by W3C for Custom Elements, Shadow DOM, HTML Imports and <template> tag.
 comments: true
 ---
 
