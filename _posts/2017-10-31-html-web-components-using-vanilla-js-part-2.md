@@ -19,8 +19,8 @@ We'll be creating a `components` directory to contain all of our components. Eac
 
 ```
 src/
-	index.html
-	components/
+  index.html
+  components/
     PeopleController/
       PeopleController.js
       PeopleController.html
@@ -105,7 +105,8 @@ The `ul.people-list__list` will contain the list of the names we get. Now create
       let _list = [];
 
       // Use defineProperty to define a prop on this object, ie, the component.
-      // Whenever list is set, call render. This way when the parent component sets some data 
+      // Whenever list is set, call render and update private variable _list. 
+      // This way when the parent component sets some data 
       // on the child object, we can automatically update the child.
       Object.defineProperty(this, 'list', {
         get: () => _list,
@@ -223,7 +224,7 @@ We have now created a template for our card. Now, let’s style it using CSS. Cr
 
 #### Component Scripting
 
-Create the /components/PeopleController/PersonDetail/PersonDetail.js file and provide the PeopleDetail component its functionality using the following code:
+Create the `/components/PeopleController/PersonDetail/PersonDetail.js` file and provide the `PeopleDetail` component its functionality using the following code:
 
 ```js
 (function () {
@@ -281,7 +282,7 @@ We have created a function `updatePersonDetails(userData)` so that we can update
 
 ### Parent Component
 
-Now that we have both our `PeopleList` component and `PersonDetail` component in place, lets create the parent component, `PeopleController`. Open the PeopleController.html file and create its template. Also import both the components in it using HTML imports.
+Now that we have both our `PeopleList` component and `PersonDetail` component in place, lets create the parent component, `PeopleController`. Open the `PeopleController.html` file and create its template. Also import both the components in it using HTML imports.
 
 <i>Note: HTML imports have been depracated from the standard and are expected to be replaced by module imports. For the purpose of this tutorial we'll use HTML imports only. You can read more on that at [MDN Blog](https://hacks.mozilla.org/2015/06/the-state-of-web-components/) and use them accordingly.</i>
 
@@ -296,7 +297,7 @@ Now that we have both our `PeopleList` component and `PersonDetail` component in
 <script src="/components/PeopleController/PeopleController.js"></script>
 ```
 
-Open the PeopleController.css file and add the following code to it:
+Open the `PeopleController.css` file and add the following code to it:
 
 ```css
 #people-list {
@@ -331,43 +332,49 @@ Open the `PeopleController.js` file and create the `PeopleController` class. We 
     }
   }
 
-  function _fetchAndPopulateData(self) {
-    let peopleList = self.shadowRoot.querySelector('#people-list');
-    fetch(`https://jsonplaceholder.typicode.com/users`)
-      .then((response) => response.text())
-      .then((responseText) => {
-        const list = JSON.parse(responseText);
-        self.peopleList = list;
-        peopleList.list = list;
-
-        _attachEventListener(self);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  function _attachEventListener(self) {
-    let personDetail = self.shadowRoot.querySelector('#person-detail');
-
-    //Initialize with person with id 1:
-    personDetail.updatePersonDetails(self.peopleList[0]);
-
-    // Watch for the event on the shadow DOM
-    self.shadowRoot.addEventListener('PersonClicked', (e) => {
-      // e contains the id of person that was clicked.
-      // We'll find him using this id in the self.people list:
-      self.peopleList.forEach(person => {
-        if (person.id == e.detail.personId) {
-          // Update the personDetail component to reflect the click
-          personDetail.updatePersonDetails(person);
-        }
-      })
-    })
-  }
+  // Private functions here
 
   customElements.define('people-controller', PeopleController);
 })()
+```
+
+Now we also need to fetch the data from the API and populate the child element. In addition to that, we need to watch for the `PersonClicked` event in the parent component so that we can update the `PersonDetail` object accordingly. So create the following 2 private functions in the above file:
+
+```js
+  function _fetchAndPopulateData(self) {
+  let peopleList = self.shadowRoot.querySelector('#people-list');
+  fetch(`https://jsonplaceholder.typicode.com/users`)
+    .then((response) => response.text())
+    .then((responseText) => {
+      const list = JSON.parse(responseText);
+      self.peopleList = list;
+      peopleList.list = list;
+
+      _attachEventListener(self);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+function _attachEventListener(self) {
+  let personDetail = self.shadowRoot.querySelector('#person-detail');
+
+  //Initialize with person with id 1:
+  personDetail.updatePersonDetails(self.peopleList[0]);
+
+  // Watch for the event on the shadow DOM
+  self.shadowRoot.addEventListener('PersonClicked', (e) => {
+    // e contains the id of person that was clicked.
+    // We'll find him using this id in the self.people list:
+    self.peopleList.forEach(person => {
+      if (person.id == e.detail.personId) {
+        // Update the personDetail component to reflect the click
+        personDetail.updatePersonDetails(person);
+      }
+    })
+  })
+}
 ```
 
 ## Using the component
