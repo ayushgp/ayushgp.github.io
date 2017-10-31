@@ -103,21 +103,6 @@ The `ul.people-list__list` will contain the list of the names we get. Now create
     constructor() {
       // If you define a constructor, always call super() first as it is required by the CE spec.
       super();
-
-      // A private property that we'll use to keep track of list
-      let _list = [];
-
-      // Use defineProperty to define a prop on this object, ie, the component.
-      // Whenever list is set, call render and update private variable _list. 
-      // This way when the parent component sets some data 
-      // on the child object, we can automatically update the child.
-      Object.defineProperty(this, 'list', {
-        get: () => _list,
-        set: (list) => {
-          _list = list;
-          this.render();
-        }
-      });
     }
 
     connectedCallback() {
@@ -126,6 +111,15 @@ The `ul.people-list__list` will contain the list of the names we get. Now create
       const template = currentDocument.querySelector('#people-list-template');
       const instance = template.content.cloneNode(true);
       shadowRoot.appendChild(instance);
+    }
+    
+    get list() {
+      return this._list;
+    }
+
+    set list(list) {
+      this._list = list;
+      this.render();
     }
 
     render() {
