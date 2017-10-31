@@ -10,6 +10,7 @@ However, by using polyfills, available from [https://www.webcomponents.org/polyf
 
 In this article, I'm going to teach you how to create your own HTML tags with styles, functionality, and markup neatly packaged in their own files. 
 
+<i>Edit: I've written another post on using Web components. You can check it out at [HTML Web Component using Vanilla JS - Part 2](https://ayushgp.github.io/html-web-components-using-vanilla-js-part-2/)!</i>
 ## Introduction
 Web Components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps. 
 
@@ -304,3 +305,5 @@ customElements.define('my-component', FrozenMyComponent);
 The tutorials out there on Web Components are very limited. This can be blamed partly on React, which has mostly shadowed Web Components. I hope this article gives you enough information to go and build your own custom components without any dependencies. You can check out the [Custom components API spec](https://www.w3.org/TR/custom-elements/) for more info on Web Components.
 
 We've barely scratched the surface of Web Components in this article. If you want me to write more tutorials on Web Components, feel free to contact me. 
+
+You can read the part of this tutorial: [HTML Web Component using Vanilla JS - Part 2](https://ayushgp.github.io/html-web-components-using-vanilla-js-part-2/)!
