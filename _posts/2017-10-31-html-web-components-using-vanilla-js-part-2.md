@@ -1,6 +1,6 @@
 ---
 layout: post
-title: HTML Web Component using Vanilla JS: Part 2
+title: HTML Web Component using Vanilla JS - Part 2
 comments: true
 ---
 
