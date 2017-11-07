@@ -34,7 +34,7 @@ The HTML and DOM standards define four new standards/APIs that are helpful for d
 1. [Custom Elements](https://www.w3.org/TR/custom-elements/): With Custom Elements, web developers can create new HTML tags, beef-up existing HTML tags, or extend the components other developers have authored. This API is the foundation of Web Components. 
 2. [HTML Templates](https://www.html5rocks.com/en/tutorials/webcomponents/template/#toc-pillars): It defines a new `<template>` element, which describes a standard DOM-based approach for client-side templating. Templates allow you to declare fragments of markup which are parsed as HTML, go unused at page load, but can be instantiated later on at runtime. 
 3. [Shadow DOM](https://dom.spec.whatwg.org/#shadow-trees): Shadow DOM is designed as a tool for building component-based apps. It brings solutions for common problems in web development. It allows you to isolate DOM for the component and scope, and simplify CSS, etc.
-4. [HTML Imports](https://www.html5rocks.com/en/tutorials/webcomponents/imports/): While HTML templates allow you to create new templates, HTML imports allows you to import these templates from different HTML files. Imports help keep code more organized by neatly arranging your components as separate HTML files.
+4. [HTML Imports](https://www.html5rocks.com/en/tutorials/webcomponents/imports/): While HTML templates allow you to create new templates, HTML imports allows you to import these templates from different HTML files. Imports help keep code more organized by neatly arranging your components as separate HTML files.<i>Note: HTML imports might go away and are also not widely supported right now. Please read [this discussion](https://github.com/w3c/webcomponents/issues/645) for more info.</i>
 
 ## Defining a Custom Element
 For creating a Custom element, we first have to declare a class for the custom element that defines how the element will behave. This class needs to extend the `HTMLElement` class. Let's take a detour and first discuss some of the lifecycle methods of custom elements. You can use the following lifecycle callbacks with custom elements:
@@ -307,3 +307,38 @@ The tutorials out there on Web Components are very limited. This can be blamed p
 We've barely scratched the surface of Web Components in this article. If you want me to write more tutorials on Web Components, feel free to contact me. 
 
 You can read the part of this tutorial: [HTML Web Component using Vanilla JS - Part 2](https://ayushgp.github.io/html-web-components-using-vanilla-js-part-2/)!
+
+### Update
+I've been repeatedly told not to use and promote the use of HTML imports as they will most probably [removed/replaced with something else](https://github.com/w3c/webcomponents/issues/645). So here is another approach as suggested by Yuri Karadzhov to keep the HTML in its own file and fetch it in the JS.
+
+Remove the `script` tag from the HTML file and `<link rel="import" href="...">` statement from index.html. Since we're fetching the HTML as a string and parsing it to `template` tag directly, we dont need to define the `currentDocument` which we were using to select the template earlier. You can rewrite your UserCard component as follows:
+
+```
+(async () => {
+  const res = await fetch('/UserCard/UserCard.html');
+  const textTemplate = await res.text();
+
+  // Parse and select the template tag here instead of adding it using innerHTML to avoid 
+  // repeated parsing and searching whenever a new instance of the component is added
+  const HTMLTemplate = new DOMParser().parseFromString(textTemplate, 'text/html').querySelector('template')
+
+  class UserCard extends HTMLElement {
+    constructor() { ... }
+
+    connectedCallback() {
+      const shadowRoot = this.attachShadow({ mode: 'open' });
+
+      // Clone the template and the cloned node to the shadowDOM's root.
+      const instance = HTMLTemplate.content.cloneNode(true);
+      shadowRoot.appendChild(instance);
+
+      const userId = this.getAttribute('user-id');
+      //...
+    }
+    render(userData) { ... }
+    toggleCard() { ... }
+  }
+
+  customElements.define('user-card', UserCard);
+})();
+```
