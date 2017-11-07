@@ -313,14 +313,16 @@ I've been repeatedly told not to use and promote the use of HTML imports as they
 
 Remove the `script` tag from the HTML file and `<link rel="import" href="...">` statement from index.html. Since we're fetching the HTML as a string and parsing it to `template` tag directly, we dont need to define the `currentDocument` which we were using to select the template earlier. You can rewrite your UserCard component as follows:
 
-```
+```js
 (async () => {
   const res = await fetch('/UserCard/UserCard.html');
   const textTemplate = await res.text();
 
-  // Parse and select the template tag here instead of adding it using innerHTML to avoid 
-  // repeated parsing and searching whenever a new instance of the component is added
-  const HTMLTemplate = new DOMParser().parseFromString(textTemplate, 'text/html').querySelector('template')
+  // Parse and select the template tag here instead 
+  // of adding it using innerHTML to avoid repeated parsing
+  // and searching whenever a new instance of the component is added.
+  const HTMLTemplate = new DOMParser().parseFromString(textTemplate, 'text/html')
+                           .querySelector('template');
 
   class UserCard extends HTMLElement {
     constructor() { ... }
