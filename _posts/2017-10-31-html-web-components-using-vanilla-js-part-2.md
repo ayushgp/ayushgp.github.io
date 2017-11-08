@@ -6,7 +6,7 @@ comments: true
 
 I've earlier written a [post on how to create vanilla JS Web Components](https://ayushgp.github.io/html-web-components-using-vanilla-js/) using the new API spec introduced by W3C for [Custom Elements](https://www.w3.org/TR/custom-elements/), [Shadow DOM](https://dom.spec.whatwg.org/#shadow-trees), [HTML Imports](https://www.html5rocks.com/en/tutorials/webcomponents/imports/) and [`<template>` tag](https://www.html5rocks.com/en/tutorials/webcomponents/template/#toc-pillars). 
 
-The previous post showed how to create a very simple and not that useful web component. In this post I'll teach you how to create multiple components and make them interact with each other and organizing your code. These are what I used when I learnt when I built an app using web components. 
+The previous post showed how to create a very simple and not that useful web component. In this post I'll teach you how to create multiple components and make them interact with each other and organizing your code. These are what I used when I learnt when I built an app using web components. You can also [check out the next post about attributes](https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/).
 
 ## What we'll build
 
@@ -408,4 +408,4 @@ $ static-server
 
 Open your browser and go to [localhost:9080](http://localhost:9080), and you should see the component we just created. 
 
-You can check out the [github repository](https://github.com/ayushgp/web-components-tutorial) I've created to go with these tutorials. Let me know what you think about this approach to use web components and any improvements I can make to either this post or the method I have described here.
+You can check out the [github repository](https://github.com/ayushgp/web-components-tutorial) I've created to go with these tutorials. Let me know what you think about this approach to use web components and any improvements I can make to either this post or the method I have described here. Also [check out the next part in this series about attributes](https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/).
