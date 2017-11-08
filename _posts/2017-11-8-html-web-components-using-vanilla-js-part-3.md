@@ -11,7 +11,7 @@ Quoting from MDN:
 > Elements in HTML have **attributes**; these are additional values that configure the elements or adjust their behavior in various ways to meet the criteria the users want.
 
 ## What we'll build?
-We'll create a component UserCard with the attributes: username, address and is-admin(Boolean that tells us whether user is admin or not). We'll also watch these attributes for changes and update the component accordingly. 
+We'll create a component `UserCard` with the attributes: `username`, `address` and `is-admin`(Boolean that tells us whether user is admin or not). We'll watch these attributes for changes and update the component accordingly. 
 
 ## Getting and Setting attributes
 We can easily define attributes in our HTML code like:
@@ -125,6 +125,7 @@ get isAdmin() {
 }
 ```
 
+### Watching for attribute changes
 The `attributeChangedCallback` is called when an observed attribute is changed. So we'll need to define what happens when any of these attributes change. Rewrite the function to contain the following:
 
 ```js
