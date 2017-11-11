@@ -21,7 +21,14 @@ I've always been fond of reading be it a nail biting novel or an intensive compu
 
 ### JavaScript
 1. [You Don't Know JS](https://github.com/getify/You-Dont-Know-JS) by *Kyle Simpson*: Best book on JavaScript as a language. Doesn't talk about different APIs, node.js, browser issues. Just pure Javascript.
-2. [JavaScript Patterns](http://amzn.to/2AzOyTl)
+ - Up and Going: [Paperback]() [Online]()
+ - this & Object Prototypes: [Paperback]() [Online]()
+ - Scopes & Closures: [Paperback]() [Online]()
+ - Types & Grammer: [Paperback]() [Online]()
+ - Async & Performance: [Paperback]() [Online]()
+ - ES6 & Beyond: [Paperback]() [Online]()
+ 
+2. [Eloquent JavaScript](http://amzn.to/2zAteNo) or [use the free online version](http://eloquentjavascript.net/)
 3. [HTML5 Rocks](https://www.html5rocks.com/en/)
 
 ## Fiction
