@@ -38,3 +38,5 @@ I've always been fond of reading be it a nail biting novel or an intensive compu
 3. [Freakonomics](http://amzn.to/2AB7d0Q) by *Stephen J. Dubner and Steven Levitt*
 4. [Sapiens: A Brief History of Humankind](http://amzn.to/2ypyYYN) by *Yuval Noah Harari*
 5. [Thinking: Fast and Slow](http://amzn.to/2yqxGwN) by *Daniel Kahneman*
+
+*Affiliate Disclaimer: I use affiliate links to link to products/books I've mentioned here. If you follow an affiliate link and go on to purchase that product or service, I will be paid a small commission, however your cost will be the same.*
