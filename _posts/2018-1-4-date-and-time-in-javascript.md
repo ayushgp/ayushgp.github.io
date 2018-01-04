@@ -8,6 +8,7 @@ Programmers usually don't understand the complexity of Date and time until they 
 
 In this article we'll talk about some of these issues that people face while using date and time in JavaScript and in general while programming.
 
+![Clocks](https://media.giphy.com/media/l0MYOUI5XfRk4LLWM/giphy.gif)
 ## Before we start
 There are some things that you need to understand about dates and times before we delve into the JS Date library.
 
@@ -101,6 +102,7 @@ console.log(day2)
 ```
 
 ## Timezones
+![Timezone Map](http://www.developingthefuture.net/wp-content/uploads/2013/07/localization-timezones.png)
 Whenever Date is called as a constructor with more than one argument, the specifed arguments represent local time. You can convert this time to a string in any timezone using the `toLocaleString()` method and providing it the locale and timezone as arguments. For example,
 
 ```js
@@ -136,9 +138,22 @@ A date object represents a particular time. You just need the milliseconds from 
 
 The toLocaleString function offers a plethora of options that are out of scope for this rather short article. You can read more about the toLocaleString function on the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
 
+## Few words of Caution
+There are a lot of gotchas you need to keep in mind when working with date and time in JavaScript. I've mentioned some of them in the article, but for ease of access, I've listed down a few of them here:
+
+1. If you call just Date() without the new keyword, you’ll get a string instead of a Date object.
+2. Months in JS start from 0-11. Also months wrap around. So if you set month to 13, it'll be set to 1 or February.
+3. Day(or weekday) is between 0-6 starting with Sunday.
+4. Where Date is called as a constructor with more than one argument, the specifed arguments represent local time. When called with one argument, it simply uses that as count of milliseconds from epoch(UTC or local doesn't matter here).
+5. Parsing of date strings with the Date constructor and Date.parse is strongly discouraged due to browser differences and inconsistencies.
+
+Thanks to [Wanderdüne](https://disqus.com/by/wanderdne/) for pointing out that the implementation for the daylight saving time in JavaScript is broken. You can read more about it in his comment or on [The Annotated ES5 spec](http://es5.github.io/#x15.9.1.8).
+
 ## Conclusion
 We discussed how we can use Date in Vanilla Javascript to represent dates and time. We took a look at Date arithematic in JS. We also saw how to convert date and time between different timezones. 
 
 Though you can use the Date directly in JS, do check out the [momentjs library](http://momentjs.com/). This library offers many features like date formatting, relative time, calender time, etc. that are just too much work to implement yourself. 
 
 [Tweet this!](https://twitter.com/intent/tweet?text="Date%20and%20Time%20in%20JS"&url="https://ayushgp.github.io/date-and-time-in-javascript"&via=ayushgp)
+
+View the [discussion on reddit](https://www.reddit.com/r/javascript/comments/7o1t0r/date_and_time_in_javascript/).
