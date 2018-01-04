@@ -141,4 +141,4 @@ We discussed how we can use Date in Vanilla Javascript to represent dates and ti
 
 Though you can use the Date directly in JS, do check out the [momentjs library](http://momentjs.com/). This library offers many features like date formatting, relative time, calender time, etc. that are just too much work to implement yourself. 
 
-[Tweet this!](https://twitter.com/intent/tweet?text="Date and Time in JS"&url="https://ayushgp.github.io/date-and-time-in-javascript"&via=ayushgp)
+[Tweet this!](https://twitter.com/intent/tweet?text="Date%20and%20Time%20in%20JS"&url="https://ayushgp.github.io/date-and-time-in-javascript"&via=ayushgp)
