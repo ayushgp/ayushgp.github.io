@@ -9,7 +9,9 @@ Programmers usually don't understand the complexity of dates and time until they
 In this article we'll talk about dates in JavaScript and some of these issues that people face while using date and time in JavaScript and in general while programming.
 
 <p align="center">![Clocks](https://media.giphy.com/media/l0MYOUI5XfRk4LLWM/giphy.gif)</p>
+
 ## Before we start
+
 There are some things that you need to understand about dates and times before we delve into the JS Date library.
 
 1. UTC is Coordinated Universal Time (UTC), the world's time standard.
@@ -102,7 +104,9 @@ console.log(day2)
 
 ## Timezones
 ![Timezone Map](http://www.developingthefuture.net/wp-content/uploads/2013/07/localization-timezones.png)
-*Image of a Timezone Map from [Developing the Future](http://www.developingthefuture.net)*
+
+<p align="center">*Image of a Timezone Map from [Developing the Future](http://www.developingthefuture.net)*</p>
+
 Whenever `new Date()` is called with more than one argument, the specifed arguments represent local time. You can convert this time to a string in any timezone using the `toLocaleString()` method and providing it the locale and timezone as arguments. For example,
 
 ```js
