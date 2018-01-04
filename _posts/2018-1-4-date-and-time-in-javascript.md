@@ -8,7 +8,7 @@ Programmers usually don't understand the complexity of Date and time until they 
 
 In this article we'll talk about some of these issues that people face while using date and time in JavaScript and in general while programming.
 
-![Clocks](https://media.giphy.com/media/l0MYOUI5XfRk4LLWM/giphy.gif)
+<div style="text-align:center">![Clocks](https://media.giphy.com/media/l0MYOUI5XfRk4LLWM/giphy.gif)</div>
 ## Before we start
 There are some things that you need to understand about dates and times before we delve into the JS Date library.
 
@@ -103,6 +103,7 @@ console.log(day2)
 
 ## Timezones
 ![Timezone Map](http://www.developingthefuture.net/wp-content/uploads/2013/07/localization-timezones.png)
+*Image of a Timezone Map from [Developing the Future](http://www.developingthefuture.net)*
 Whenever Date is called as a constructor with more than one argument, the specifed arguments represent local time. You can convert this time to a string in any timezone using the `toLocaleString()` method and providing it the locale and timezone as arguments. For example,
 
 ```js
