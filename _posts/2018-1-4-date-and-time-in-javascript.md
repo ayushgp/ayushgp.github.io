@@ -4,11 +4,11 @@ title: Date and Time in JavaScript
 comments: true
 ---
 
-Programmers usually don't understand the complexity of Date and time until they have to dip their toes in this world. Handling Timezones, taking daylight savings in account and Date math are some of the things that make handling dates and time a difficult task.
+Programmers usually don't understand the complexity of dates and time until they have to dip their toes in this world. Handling timezones, taking daylight savings in account and date math are some of the things that make handling dates and time a nightmare for developers.
 
-In this article we'll talk about some of these issues that people face while using date and time in JavaScript and in general while programming.
+In this article we'll talk about dates in JavaScript and some of these issues that people face while using date and time in JavaScript and in general while programming.
 
-<div style="text-align:center">![Clocks](https://media.giphy.com/media/l0MYOUI5XfRk4LLWM/giphy.gif)</div>
+<p align="center">![Clocks](https://media.giphy.com/media/l0MYOUI5XfRk4LLWM/giphy.gif)</p>
 ## Before we start
 There are some things that you need to understand about dates and times before we delve into the JS Date library.
 
@@ -19,7 +19,7 @@ There are some things that you need to understand about dates and times before w
 There is much more complexity than this but those are exceptions rather than the norm. You can read more about them on [TimeAndDate.com](https://www.timeanddate.com/time/time-zones.html).
 
 ## The Date object
-The Date object is a datatype built into the JavaScript language. `Date` objects are based on a time value that is the number of milliseconds since 1 January 1970 UTC. There are multiple ways in which you can instantiate a `Date`. All of these methods instantiate the date in your local time zone.
+The `Date` object is a datatype built into the JavaScript language. `Date` objects are based on a time value that is the number of milliseconds since **1 January 1970 UTC**. There are multiple ways in which you can instantiate a `Date`. All of these methods instantiate the date in your local time zone.
 
 ```js
 new Date();
@@ -50,7 +50,7 @@ new Date(year, month, day, hours, minutes, seconds, milliseconds);
 > Note: If you call just `Date()` without the `new` keyword, you'll get a string instead of a `Date` object.
 
 ## Getters and Setters
-The Date class gives you getters and setters for manipulating almost every aspect of a date. These getters and setters are also available in UTC version to save you the hassle of getting and setting things manually in UTC. You can check out the full list of methods on the [MDN Javascript Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). 
+The `Date` class gives you getters and setters for manipulating almost every aspect of a date. These getters and setters are also available in UTC version to save you the hassle of getting and setting things manually in UTC. You can check out the full list of methods on the [MDN Javascript Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). 
 
 Let's have a look at some of the interesting one's. 
 
@@ -64,8 +64,6 @@ console.log(today.getDay())
 
 console.log(today.getMonths())
 // 0 as months in JS start from 0-11. 
-// Also months wrap around. 
-// So if you set month to 13, it'll be set to 1 or February
 
 console.log(today.getTime())
 // 1515050172692
@@ -73,9 +71,10 @@ console.log(today.getTime())
 // number of milliseconds since January 1, 1970, 00:00:00 UTC
 // (negative for prior times).
 ```
+> Note: Values that are allowed in a fixed range get wrapped around those values. For example if you try to set the month to 13, it'll actually be set to 1(February), as it is wrapped around by taking a modulus using 12. Same happens to many other properties like date(0-31), minutes(0-60), milliseconds(0-999), etc.
 
 ## Date arithematic
-You sometimes need to calculate difference between dates/times, maybe for benchmarking purposes. Or you may need to calculate a certain date or time after a period of time. The Date class supports arithematic in JS and makes both of these tasks very easy. You can simply subtract subtract 2 dates and get their difference in milliseconds. For Example,
+You sometimes need to calculate difference between dates/times, maybe for benchmarking purposes. Or you may need to calculate a certain date or time after a period of time. The `Date` class supports arithematic in JS and makes both of these tasks very easy. You can simply subtract subtract 2 dates and get their difference in milliseconds. For Example,
 
 ```js
 // Represents 10:00:00 on 1st Jan 2018
@@ -90,7 +89,7 @@ console.log(diff)
 // You can define your own functions to convert this time to minutes, seconds, etc.
 ```
 
-For adding time to a given date, you first need to extract the time in milliseconds since epoch from the date object using `Date.getTime()` function, add time to it in milliseconds and finally recreate a Date object using the `new Date(milliseconds)` constructor. For example,
+For adding time to a given date, you first need to extract the time in milliseconds since epoch from the date object using `Date.getTime()` function, add time to it in milliseconds and finally recreate a `Date` object using the `new Date(milliseconds)` constructor. For example,
 
 ```js
 let day1 = new Date(2018, 0, 1, 10) 
@@ -104,7 +103,7 @@ console.log(day2)
 ## Timezones
 ![Timezone Map](http://www.developingthefuture.net/wp-content/uploads/2013/07/localization-timezones.png)
 *Image of a Timezone Map from [Developing the Future](http://www.developingthefuture.net)*
-Whenever Date is called as a constructor with more than one argument, the specifed arguments represent local time. You can convert this time to a string in any timezone using the `toLocaleString()` method and providing it the locale and timezone as arguments. For example,
+Whenever `new Date()` is called with more than one argument, the specifed arguments represent local time. You can convert this time to a string in any timezone using the `toLocaleString()` method and providing it the locale and timezone as arguments. For example,
 
 ```js
 let today = new Date()
@@ -118,7 +117,7 @@ console.log(today.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
 // 1/4/2018, 1:26:43 PM
 ```
 
-If you don't provide the timeZone propery in the options, the format assumes that you want the time in local time of the locale you mention. For example,
+If you don't provide the `timeZone` propery in the options, the format assumes that you want the time in local time of the locale you mention. For example,
 
 ```js
 let today = new Date()
@@ -137,7 +136,7 @@ console.log(today.toLocaleString('ko-KR'));
 
 A date object represents a particular time. You just need the milliseconds from epoch. Using the `toLocaleString` function and `timeZone` options you can easily convert this date to a string in any locale and timezone. The timezone you provide here also takes into account the DayLight Savings(If any).
 
-The toLocaleString function offers a plethora of options that are out of scope for this rather short article. You can read more about the toLocaleString function on the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
+The `toLocaleString` function offers a plethora of options that are out of scope for this rather short article. You can read more about the `toLocaleString` function on the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
 
 ## Few words of Caution
 There are a lot of gotchas you need to keep in mind when working with date and time in JavaScript. I've mentioned some of them in the article, but for ease of access, I've listed down a few of them here:
@@ -151,9 +150,9 @@ There are a lot of gotchas you need to keep in mind when working with date and t
 Thanks to [Wanderdüne](https://disqus.com/by/wanderdne/) for pointing out that the implementation for the daylight saving time in JavaScript is broken. You can read more about it in his comment or on [The Annotated ES5 spec](http://es5.github.io/#x15.9.1.8).
 
 ## Conclusion
-We discussed how we can use Date in Vanilla Javascript to represent dates and time. We took a look at Date arithematic in JS. We also saw how to convert date and time between different timezones. 
+We discussed how we can use Date in Vanilla Javascript to represent dates and time. We took a look at time arithematic. We also saw how to convert date and time between different timezones. 
 
-Though you can use the Date directly in JS, do check out the [momentjs library](http://momentjs.com/). This library offers many features like date formatting, relative time, calender time, etc. that are just too much work to implement yourself. 
+Though you can use the Date directly in JS, do check out the [momentjs library](http://momentjs.com/) or the [date-fns](https://date-fns.org/). These libraries offer many features like date formatting, relative time, calender time, etc. that are just too much work to implement yourself. 
 
 [Tweet this!](https://twitter.com/intent/tweet?text="Date%20and%20Time%20in%20JS"&url="https://ayushgp.github.io/date-and-time-in-javascript"&via=ayushgp)
 
