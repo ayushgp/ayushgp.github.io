@@ -141,11 +141,11 @@ The `toLocaleString` function offers a plethora of options that are out of scope
 ## Few words of Caution
 There are a lot of gotchas you need to keep in mind when working with date and time in JavaScript. I've mentioned some of them in the article, but for ease of access, I've listed down a few of them here:
 
-1. If you call just Date() without the new keyword, you’ll get a string instead of a Date object.
+1. If you call just `Date()` without the `new` keyword, you’ll get a string instead of a `Date` object.
 2. Months in JS start from 0-11. Also months wrap around. So if you set month to 13, it'll be set to 1 or February.
 3. Day(or weekday) is between 0-6 starting with Sunday.
-4. Where Date is called as a constructor with more than one argument, the specifed arguments represent local time. When called with one argument, it simply uses that as count of milliseconds from epoch(UTC or local doesn't matter here).
-5. Parsing of date strings with the Date constructor and Date.parse is strongly discouraged due to browser differences and inconsistencies.
+4. Where `new Date()` is called with more than one argument, the specifed arguments represent local time. When called with one argument, it simply uses that as count of milliseconds from epoch(UTC or local doesn't matter here).
+5. Parsing of date strings with the `Date` constructor and `Date.parse` may lead to inconsistencies due to browser differences and hence is strongly discouraged.
 
 Thanks to [Wanderdüne](https://disqus.com/by/wanderdne/) for pointing out that the implementation for the daylight saving time in JavaScript is broken. You can read more about it in his comment or on [The Annotated ES5 spec](http://es5.github.io/#x15.9.1.8).
 
