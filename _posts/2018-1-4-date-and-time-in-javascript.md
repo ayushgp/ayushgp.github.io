@@ -105,7 +105,7 @@ console.log(day2)
 ## Timezones
 ![Timezone Map](http://www.developingthefuture.net/wp-content/uploads/2013/07/localization-timezones.png)
 
-<p align="center"><i>Image of a Timezone Map from <a href="http://www.developingthefuture.net">Developing the Future</a><\i>.</p>
+<p align="center"><i>Image of a Timezone Map from <a href="http://www.developingthefuture.net">Developing the Future</a></i>.</p>
 
 Whenever `new Date()` is called with more than one argument, the specifed arguments represent local time. You can convert this time to a string in any timezone using the `toLocaleString()` method and providing it the locale and timezone as arguments. For example,
 
