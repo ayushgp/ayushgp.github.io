@@ -21,11 +21,11 @@ So if a client has 15 tabs open, they'll have 15 open connections to the server.
 ## `WebWorkers`, `SharedWorkers` and `BroadcastChannels` to the rescue
 **[Web Workers]((https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers))** are a simple means for web content to run scripts in background threads. The worker thread can perform tasks without interfering with the user interface. Once created, a worker can send messages to the JavaScript code that created it by posting messages to an event handler specified by that code (and vice versa).
 
-**Shared Workers** are a type of web workers that can be accessed from several browsing contexts, such as several windows, iframes or even workers.
+**[Shared Workers](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker)** are a type of web workers that can be accessed from several browsing contexts, such as several windows, iframes or even workers.
 
-**Broadcast Channels**  allows simple communication between [browsing contexts](https://developer.mozilla.org/en-US/docs/Glossary/browsing_context "browsing contexts: A browsing context is the environment in which a browser displays a Document (normally a tab nowadays, but possibly also a window or a frame within a page).") (that is _windows_, _tabs_, _frames_, or _iframes_) with the same [origin](https://developer.mozilla.org/en-US/docs/Glossary/origin "origin: Web content's origin is defined by the scheme (protocol), host (domain), and port of the URL used to access it. Two objects have the same origin only when the scheme, host, and port all match.").
+**[Broadcast Channels](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API)**  allows simple communication between [browsing contexts](https://developer.mozilla.org/en-US/docs/Glossary/browsing_context "browsing contexts: A browsing context is the environment in which a browser displays a Document (normally a tab nowadays, but possibly also a window or a frame within a page).") (that is _windows_, _tabs_, _frames_, or _iframes_) with the same [origin](https://developer.mozilla.org/en-US/docs/Glossary/origin "origin: Web content's origin is defined by the scheme (protocol), host (domain), and port of the URL used to access it. Two objects have the same origin only when the scheme, host, and port all match.").
 
-All the above definitions are from MDN.
+_All the above definitions are from MDN._
 
 ### Reducing the server load using SharedWorkers
 We can use `SharedWorker` for solving this problem of a single client having multiple connections open from the same browser. Instead of opening a connection from each tab/browser window, we can instead use a `SharedWorker` to open the connection to the server. 
@@ -47,7 +47,7 @@ Run through the steps, once you have a `package.json` file, add the `ws` module 
 $ npm install --save ws express
 ```
 
-Once you have this, create a index.js file with the following code to set up your static server serving files from `public` directory and at port 3000 and running a `ws` server at port 3001:
+Once you have this, create a index.js file with the following code to set up your static server serving files from `public` directory at port 3000 and running a `ws` server at port 3001:
 
 ```js
 const  express  =  require("express");
