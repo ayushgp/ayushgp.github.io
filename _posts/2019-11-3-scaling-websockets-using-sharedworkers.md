@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Scaling WebSocket Connections using Web Workers
+title: Scaling WebSocket Connections using Shared Workers
 comments: true
 ---
 
