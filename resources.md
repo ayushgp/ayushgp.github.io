@@ -1,4 +1,4 @@
-I've always been fond of reading be it a nail biting novel or an intensive computer science book. So here is a list of books I love ordered by categories.
+I've always been fond of reading be it a nail biting novel or an intensive computer science book. So here is a list of books I love ordered by categories(Not up to date in any way).
 
 ## Misc
 1. [What every programmer should know about memory](futuretech.blinkenlights.nl/misc/cpumemory.pdf) by *U Drepper*: A long read but totally worth it especially if you like learning about very low level stuff.
@@ -8,9 +8,7 @@ I've always been fond of reading be it a nail biting novel or an intensive compu
 
 ## Computer Science
 1. Structure and Interpretation of programs: [Interactive online book](https://xuanji.appspot.com/isicp/), [Paperback](http://amzn.to/2zAj69c)
-2. [Operating System Concepts](http://amzn.to/2yq3P7Q): Great book, I also found [these notes](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/) quite helpful as they provide a nice summary.
-3. [The Algorithm design manual](http://amzn.to/2yuk03J): Found it to be easier read than [CLRS](http://amzn.to/2hrg294). Also if you're looking for code samples of algorithms, check out [Algorithms by Sedgewick](http://algs4.cs.princeton.edu/home/).
-4. [Introduction to Statistical learning](http://amzn.to/2hqW0LG): Very light on math but quite useful to start with data science.
+2. [Introduction to Statistical learning](http://amzn.to/2hqW0LG): Very light on math but quite useful to start with data science.
 
 ## Programming(Language agnostic)
 1. [Clean Code](http://amzn.to/2hr5WoI) by *Robert C. Martin*: Hands down best book I've read about programming. Fun read with lots of examples. Mostly describes OOP practices.
@@ -21,27 +19,6 @@ I've always been fond of reading be it a nail biting novel or an intensive compu
 
 ### JavaScript
 1. [You Don't Know JS](https://github.com/getify/You-Dont-Know-JS) by *Kyle Simpson*: Best book on JavaScript as a language. Doesn't talk about different APIs, node.js, browser issues. Just pure Javascript.
- - Up and Going: [Paperback]() [Online]()
- - this & Object Prototypes: [Paperback]() [Online]()
- - Scopes & Closures: [Paperback]() [Online]()
- - Types & Grammer: [Paperback]() [Online]()
- - Async & Performance: [Paperback]() [Online]()
- - ES6 & Beyond: [Paperback]() [Online]()
- 
 2. [Eloquent JavaScript](http://amzn.to/2zAteNo) or [use the free online version](http://eloquentjavascript.net/)
 3. [HTML5 Rocks](https://www.html5rocks.com/en/)
 
-## Fiction
-1. [The Godfather](http://amzn.to/2yRJegJ) by *Mario Puzo*: Read this book thrice and I just love it.
-2. [Angels and Demons](http://amzn.to/2ysb2UU) by *Dan Brown*
-3. [The Kite Runner](http://amzn.to/2yQJwVc) by *Khaled Hosseini*
-4. [A Thousand Splendid Suns](http://amzn.to/2i2MR9p) by *Khaled Hosseini*
-5. [Life of Pi](http://amzn.to/2i41dGy) by *Yann Martel*
-6. [Tuesdays with Morrie](http://amzn.to/2ypXARp) by *Mitch Albom*
-
-## Non-fiction
-1. [Wild: From Lost to Found on the Pacific Crest Trail](http://amzn.to/2zxxGi0)
-2. [The Power of Habit](http://amzn.to/2AzM7js) by *Charles Duhigg*
-3. [Freakonomics](http://amzn.to/2AB7d0Q) by *Stephen J. Dubner and Steven Levitt*
-4. [Sapiens: A Brief History of Humankind](http://amzn.to/2ypyYYN) by *Yuval Noah Harari*
-5. [Thinking: Fast and Slow](http://amzn.to/2yqxGwN) by *Daniel Kahneman*
