@@ -2,6 +2,7 @@
 layout: post
 title: Migrating changes from Staging to Prod using Hasura CLI
 comments: true
+published: false
 ---
 
 I've been tinkering with Hasura for some time now. One of the issues I have is migrating changes from one env to another. It involves 4 steps:
